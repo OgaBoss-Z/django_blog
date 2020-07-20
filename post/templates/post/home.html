@@ -1,0 +1,128 @@
+{% extends 'post/base.html' %}
+{%  load static %}
+
+{% block content %}
+
+
+   <div class="intro intro-single route blog-image" style="background-image: url({% static 'post/assets/img/blog-bg.jpg' %})">
+      <div class="overlay-mf"></div>
+   </div>
+
+   <main id="main">
+
+      <!-- ======= Blog Single Section ======= -->
+      <section class="blog-wraper sect-pt4" id="blog">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-8">
+                  <div class="post-box">
+                     {% for post in post %}
+                        <article class="media content-section">
+                           <img class="rounded-circle article-img" src="{{ post.image.url }}">
+                           <div class="media-body">
+                              <div class="article-metadata">
+                                 {{ post.category }}
+                                 <small class="text-muted float-right">{{ post.created|timesince }}</small>
+                              </div>
+                              <h5><a class="article-title" href="{% url 'post-detail' post.slug %}">{{ post.title }}</a></h5>
+                              <a class="article-title" href="{% url 'post-detail' post.slug %}"><p class="article-content">{{ post.content|safe|linebreaks|truncatechars:120 }}</p></a>
+                           </div>
+                        </article>
+                     {% endfor %}
+                     
+                  </div>
+               </div><!-- End of col-md-8 -->
+
+               <div class="col-md-4">
+                  <!-- Search section -->
+                  <div class="widget-sidebar sidebar-search">
+                     <h5 class="sidebar-title">Search</h5>
+                     <div class="sidebar-content">
+                        <form>
+                        <div class="input-group">
+                           <input type="text" class="form-control" placeholder="Search for..." aria-label="Search for...">
+                           <span class="input-group-btn">
+                              <button class="btn btn-secondary btn-search" type="button">
+                              <span class="ion-android-search"></span>
+                              </button>
+                           </span>
+                        </div>
+                        </form>
+                     </div>
+                  </div> <!-- End of Search section -->
+
+                  <!-- Featured Posts -->
+                  <div class="widget-sidebar">
+                     <h5 class="sidebar-title">Featured Posts</h5>
+                     <div class="sidebar-content">
+                        <ul class="list-sidebar">
+                           {% for featured in feature %}
+                              <li>
+                                 <a href="{{post.get_absolute_url}}">{{featured.title|linebreaks|truncatechars:50}}</a>
+                              </li>
+                           {% endfor %}
+                        </ul>
+                     </div>
+                  </div> <!-- End of Related Posts -->
+
+                  <!-- Categoris -->
+                  <div class="widget-sidebar widget-category">
+                     <h5 class="sidebar-title">Category</h5>
+                     <div class="sidebar-content">
+                        <ul>
+                           {% for cat in category %}
+                              <li>
+                                 <a href="">{{cat.title}}</a>
+                              </li>
+                           {% endfor %}
+                        </ul>
+                     </div>
+                  </div> <!-- End of Cattegory -->
+
+               </div><!-- End of col-md-4 -->
+            </div>
+         </div>
+      </section><!-- End Blog Single Section -->
+
+   </main><!-- End #main -->
+
+
+
+
+
+   {% if is_paginated %}
+
+      {% if page_obj.has_previous %}
+         <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+         <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+         {% if page_obj.number == num %}
+            <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+         {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+         {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+         <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+         <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+
+   {% endif %}
+
+
+
+{% block script %}
+
+   <script>
+      $(document).ready(function(){
+         alert('We are ready!');
+      })
+   </script>
+
+{% endblock %}
+
+{% endblock %}
+

@@ -1,0 +1,193 @@
+{% extends 'post/base.html' %}
+
+{% block content %}
+
+   <div class="intro intro-single route bg-image" style="background-image: url(assets/img/overlay-bg.jpg)">
+      <div class="overlay-mf"></div>
+      <div class="intro-content display-table">
+         
+      </div>
+   </div>
+
+   <main id="main">
+
+      <!-- ======= Blog Single Section ======= -->
+      <section class="blog-wrapper sect-pt4" id="blog">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-8">
+                  <div class="post-box">
+                     <div class="post-thumb">
+                        <img src="{{post.image.url}}" class="img-fluid post-img" alt="">
+                     </div>
+
+                     <div class="post-meta">
+                        <ul>
+                           <li>
+                              <span class="ion-pricetag"></span>
+                              In<a href="#"> {{post.category}}</a> Category
+                           </li>
+                           <li>
+                           <span class="ion-chatbox"></span>
+                           <a href="#">14</a>
+                           </li>
+                        </ul>
+                        <h1 class="article-title">{{post.title}}</h1>
+                        
+                     </div>
+
+                     <div class="article-content">
+                        <p>{{post.content|safe}}</p>
+                     </div>
+                  </div>
+
+                  
+                  <div class="box-comments">
+                     <div class="title-box-2">
+                        <h4 class="title-comments title-left">Comments ({{post.comments.count}})</h4>
+                     </div>
+                     <ul class="list-comments">
+                        {% for comment in comments %}
+                           <li>
+                              <div class="comment-avatar">
+                                 <img src="assets/img/testimonial-4.jpg" alt="">
+                              </div>
+                              <div class="comment-details">
+                                 <h4 class="comment-author">{{comment.user.username}}</h4>
+                                 <span>{{comment.created}}</span>
+                                 <p>
+                                 {{comment.body|linebreaks}}
+                                 </p>
+                                 <div class="reply">
+                                    <a href="" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Reply</a>
+                                    
+                                    <div class="collapse" id="collapseExample">
+                                       <div class="card card-body">
+                                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </li>
+                           
+                           <li class="comment-children">
+                              <div class="comment-avatar">
+                                 <img src="assets/img/testimonial-2.jpg" alt="">
+                              </div>
+                              <div class="comment-details">
+                                 <h4 class="comment-author">Oliver Colmenares</h4>
+                                 <span>18 Sep 2017</span>
+                                 <p>
+                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores reprehenderit, provident cumque
+                                 ipsam temporibus maiores
+                                 quae.
+                                 </p>
+                                 <a href="3">Reply</a>
+                              </div>
+                           </li>
+                           {% endfor %}
+                     </ul>
+                  </div>
+                  
+
+                  <div class="form-comments">
+                     <div class="title-box-2">
+                        <h3 class="title-left">
+                           Add a Comment
+                        </h3>
+                     </div>
+                     <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                           <div class="col-md-12 mb-3">
+                              <div class="form-group">
+                                 {{form.body}}
+                              </div>
+                           </div>
+                           <div class="col-md-12">
+                              <button type="submit" class="button button-a button-big">Add Comment</button>
+                           </div>
+                        </div><!-- End of Row -->
+                     </form>
+                  </div><!-- End of Form-Comment -->
+               </div>
+
+               <div class="col-md-4">
+                  <!-- Search section -->
+                  <div class="widget-sidebar sidebar-search">
+                     <h5 class="sidebar-title">Search</h5>
+                     <div class="sidebar-content">
+                        <form>
+                        <div class="input-group">
+                           <input type="text" class="form-control" placeholder="Search for..." aria-label="Search for...">
+                           <span class="input-group-btn">
+                              <button class="btn btn-secondary btn-search" type="button">
+                              <span class="ion-android-search"></span>
+                              </button>
+                           </span>
+                        </div>
+                        </form>
+                     </div>
+                  </div> <!-- End of Search section -->
+
+                  <!-- Related Posts -->
+                  <div class="widget-sidebar">
+                     <h5 class="sidebar-title">Related Posts</h5>
+                     <div class="sidebar-content">
+                        <ul class="list-sidebar">
+                           <li>
+                              <a href="#">Some related posts title for you 1</a>
+                           </li>
+                           <li>
+                              <a href="#">Some related posts title for you and all</a>
+                           </li>
+                           <li>
+                              <a href="#">Nam quo autem exercitationem just inuse sf.</a>
+                           </li>
+                        </ul>
+                     </div>
+                  </div> <!-- End of Related Posts -->
+                  
+                  <!-- Featured Posts -->
+                  <div class="widget-sidebar">
+                     <h5 class="sidebar-title">Featured Posts</h5>
+                     <div class="sidebar-content">
+                        <ul class="list-sidebar">
+                           {% for featured in feature %}
+                              <li>
+                                 <a href="{{featured.get_absolute_url}}">{{featured.title|linebreaks|truncatechars:50}}</a>
+                              </li>
+                           {% endfor %}
+                        </ul>
+                     </div>
+                  </div> <!-- End of Related Posts -->
+
+                  <!-- Categoris -->
+                  <div class="widget-sidebar widget-category">
+                     <h5 class="sidebar-title">Categories</h5>
+                     <div class="sidebar-content">
+                        <ul>
+                           {% for cat in category %}
+                              <li>
+                                 <a href="">{{cat.title}}</a>
+                              </li>
+                           {% endfor %}
+                        </ul>
+                     </div>
+                  </div> <!-- End of Cattegory -->
+
+               </div><!-- End of col-md-4 -->
+            </div>
+         </div>
+      </section><!-- End Blog Single Section -->
+
+   </main><!-- End #main -->
+
+{% endblock %}
+
+<!-- 
+
+   <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+   <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+
+ -->
