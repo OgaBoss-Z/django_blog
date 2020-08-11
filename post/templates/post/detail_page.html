@@ -25,12 +25,21 @@
                         <ul>
                            <li>
                               <span class="ion-pricetag"></span>
-                              In<a href="#"> {{post.category}}</a> Category
+                              In<a href=""> {{post.category}}</a> Category
                            </li>
-                           <li>
-                           <span class="ion-chatbox"></span>
-                           <a href="#">14</a>
-                           </li>
+                           <div class="float-right">
+                              <a href=""><li class="extra-item"><i class="fa fa-thumbs-up mr-2" aria-hidden="true"></i>Like</li> </a>
+                              <a href=""><li class="extra-item"><i class="fa fa-share mr-2" aria-hidden="true"></i>Share</li></a>
+                              <a href="#comments"><li class="extra-item"><i class="fa fa-comments mr-2" aria-hidden="true"></i>
+                                 {% if post.comments.count > 1 %}
+                                    {{post.comments.count}} Comments
+                                 {% else %}
+                                    {{post.comments.count}} Comment
+                                 {% endif %}
+                              </li></a>
+                           </div>
+
+                           
                         </ul>
                         <h1 class="article-title">{{post.title}}</h1>
                         
@@ -42,9 +51,9 @@
                   </div>
 
                   
-                  <div class="box-comments">
+                  <div id="comments" class="box-comments">
                      <div class="title-box-2">
-                        <h4 class="title-comments title-left">Comments ({{post.comments.count}})</h4>
+                        <h4 class="title-comments title-left">Comments</h4>
                      </div>
                      <ul class="list-comments">
                         {% for comment in comments %}
@@ -53,7 +62,7 @@
                                  <img src="assets/img/testimonial-4.jpg" alt="">
                               </div>
                               <div class="comment-details">
-                                 <h4 class="comment-author">{{comment.user.username}}</h4>
+                                 <h6 class="comment-author">{{comment.user.username}}</h6>
                                  <span>{{comment.created}}</span>
                                  <p>
                                  {{comment.body|linebreaks}}
@@ -62,27 +71,26 @@
                                     <a href="" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Reply</a>
                                     
                                     <div class="collapse" id="collapseExample">
-                                       <div class="card card-body">
-                                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                       </div>
+                                       <ul>
+                                          <li class="comment-children">
+                                          <div class="comment-avatar">
+                                             <img src="assets/img/testimonial-2.jpg" alt="">
+                                          </div>
+                                          <div class="comment-details">
+                                             <h4 class="comment-author">Oliver Colmenares</h4>
+                                             <span>18 Sep 2017</span>
+                                             <p>
+                                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores reprehenderit, provident cumque
+                                             ipsam temporibus maiores
+                                             quae.
+                                             </p>
+                                             <a href="">Reply</a>
+                                          </div>
+                                       </li>
+                                       </ul>
+                                       
                                     </div>
                                  </div>
-                              </div>
-                           </li>
-                           
-                           <li class="comment-children">
-                              <div class="comment-avatar">
-                                 <img src="assets/img/testimonial-2.jpg" alt="">
-                              </div>
-                              <div class="comment-details">
-                                 <h4 class="comment-author">Oliver Colmenares</h4>
-                                 <span>18 Sep 2017</span>
-                                 <p>
-                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores reprehenderit, provident cumque
-                                 ipsam temporibus maiores
-                                 quae.
-                                 </p>
-                                 <a href="3">Reply</a>
                               </div>
                            </li>
                            {% endfor %}
@@ -92,23 +100,31 @@
 
                   <div class="form-comments">
                      <div class="title-box-2">
-                        <h3 class="title-left">
+                        <h1 class="title-left">
                            Add a Comment
-                        </h3>
+                        </h1>
                      </div>
-                     <form action="" method="POST">
-                        {% csrf_token %}
-                        <div class="row">
-                           <div class="col-md-12 mb-3">
-                              <div class="form-group">
-                                 {{form.body}}
+                     {% if user.is_authenticated %}
+                        <form action="" method="POST">
+                           {% csrf_token %}
+                           <div class="row">
+                              <div class="col-md-12 mb-3">
+                                 <div class="form-group">
+                                    {{form.body}}
+                                 </div>
                               </div>
-                           </div>
-                           <div class="col-md-12">
-                              <button type="submit" class="button button-a button-big">Add Comment</button>
-                           </div>
-                        </div><!-- End of Row -->
-                     </form>
+                              <div class="col-md-12">
+                                 <button type="submit" class="button button-a button-big">Add Comment</button>
+                              </div>
+                           </div><!-- End of Row -->
+                        </form>
+                     {% else %}
+                        <div class="login-first">
+                           <p>
+                              Please <a href="">login</a> to add a comment
+                           </p>
+                        </div>
+                     {% endif %}
                   </div><!-- End of Form-Comment -->
                </div>
 
@@ -135,6 +151,20 @@
                      <h5 class="sidebar-title">Related Posts</h5>
                      <div class="sidebar-content">
                         <ul class="list-sidebar">
+                           {% for related in related_posts %}
+                              <li>
+                                 <a href="{{post.get_absolute_url}}">{{related.title|linebreaks|truncatechars:50}}</a>
+                              </li>
+                           {% endfor %}
+                        </ul>
+                     </div>
+                  </div> <!-- End of Related Posts -->
+
+                  <!-- Related Posts -->
+                  <!-- <div class="widget-sidebar">
+                     <h5 class="sidebar-title">Related Posts</h5>
+                     <div class="sidebar-content">
+                        <ul class="list-sidebar">
                            <li>
                               <a href="#">Some related posts title for you 1</a>
                            </li>
@@ -146,7 +176,7 @@
                            </li>
                         </ul>
                      </div>
-                  </div> <!-- End of Related Posts -->
+                  </div>  --><!-- End of Related Posts -->
                   
                   <!-- Featured Posts -->
                   <div class="widget-sidebar">

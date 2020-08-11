@@ -151,9 +151,6 @@ a:hover {
   text-transform: uppercase;
 }
 
-.subtitle-a {
-  color: #4e4e4e;
-}
 
 .line-mf {
   width: 40px;
@@ -167,8 +164,8 @@ a:hover {
   margin-bottom: 3rem;
 }
 
-.title-left, .skill-t {
-  font-size: 2rem;
+.title-left {
+  font-size: 1.2rem;
   position: relative;
 }
 
@@ -178,15 +175,6 @@ a:hover {
   height: 3px;
   background-color: #08c;
   width: 100px;
-  bottom: -12px;
-}
-
-.skill-t:before {
-  content: '';
-  position: absolute;
-  height: 3px;
-  background-color: #08c;
-  width: 40px;
   bottom: -12px;
 }
 
@@ -675,17 +663,6 @@ a:hover {
 @media (min-width: 768px) {
   .intro .intro-title {
     font-size: 2.5rem;
-  }
-}
-
-.intro .intro-subtitle {
-  font-size: 1rem;
-  font-weight: 300;
-}
-
-@media (min-width: 768px) {
-  .intro .intro-subtitle {
-    font-size: 2rem;
   }
 }
 
@@ -1188,9 +1165,10 @@ a.article-title:hover {
 }
 
 .article-metadata {
-  padding-bottom: 1px;
-  margin-bottom: 4px;
-  border-bottom: 1px solid #e3e3e3
+  padding-top: 4px;
+  padding-bottom: 0;
+  border-top: 1px solid #e3e3e3;
+  border-bottom: 1px solid #e3e3e3;
 }
 
 .article-metadata a:hover {
@@ -1198,6 +1176,22 @@ a.article-title:hover {
   text-decoration: none;
 }
 
+.text-muted .extra {
+  list-style: none;
+  display: inline-block;
+  letter-spacing: normal;
+}
+.text-muted .extra li { 
+  display: inline-block
+}
+
+.text-muted .extra .extra-item {
+  margin: 0 10px 0 30px;
+}
+
+s-cat {
+  padding-bottom: 30px;
+}
 
 
 @media (min-width: 767px) {
@@ -1286,7 +1280,7 @@ a.article-title:hover {
 
 .blog-wrapper .article-title {
   font-size: 2.5rem;
-  padding-top: 2rem;
+  padding-top: 1rem;
 }
 
 @media (min-width: 768px) {

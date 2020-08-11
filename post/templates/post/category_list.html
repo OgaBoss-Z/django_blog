@@ -16,11 +16,11 @@
             <div class="row">
                <div class="col-md-8">
                   <div class="post-box">
-                     {% for post in post %}
+                     {% for post in post_category %}
                         <article class="media content-section">
                            <img class="rounded-circle article-img" src="{{ post.image.url }}">
                            <div class="media-body">
-                              <div class="article-metadata">
+                              <div class="article-metadata pb-2">
                                  {{ post.category }}
                                  <small class="text-muted float-right">
                                     {{ post.created|timesince }}
@@ -55,6 +55,20 @@
                      </div>
                   </div> <!-- End of Search section -->
 
+                  <!-- Categoris -->
+                  <div class="widget-sidebar widget-categohry">
+                     <h5 class="sidebar-title">Category</h5>
+                     <div class="sidebar-content">
+                        <ul class="list-sidebar">
+                           {% for cat in category %}
+                              <li>
+                                 <a href="{{cat.get_absolute_url}}">{{cat.title}} - {{cat.post_count}}</a>
+                              </li>
+                           {% endfor %}
+                        </ul>
+                     </div>
+                  </div> <!-- End of Cattegory -->
+
                   <!-- Featured Posts -->
                   <div class="widget-sidebar">
                      <h5 class="sidebar-title">Featured Posts</h5>
@@ -67,21 +81,7 @@
                            {% endfor %}
                         </ul>
                      </div>
-                  </div> <!-- End of Related Posts -->
-
-                  <!-- Categoris -->
-                  <div class="widget-sidebar widget-category">
-                     <h5 class="sidebar-title">Category</h5>
-                     <div class="sidebar-content">
-                        <ul>
-                           {% for cat in category %}
-                              <li>
-                                 <a href="{{cat.get_absolute_url}}">{{cat.title}}</a>
-                              </li>
-                           {% endfor %}
-                        </ul>
-                     </div>
-                  </div> <!-- End of Cattegory -->
+                  </div> <!-- End of Featured Posts -->
 
                </div><!-- End of col-md-4 -->
             </div>

@@ -21,12 +21,21 @@ class Category(models.Model):
 
    def __str__(self):
       return self.title
+   
+   def get_absolute_url(self):
+      return reverse('post-category', kwargs={'pk': self.pk, 'slug': self.slug})
 
 class Tag(models.Model):
    name = models.CharField(max_length=30)
    
    def __str__(self):
       return self.name
+   
+""" class Like(models.Model):
+   name = models.CharField(max_length=30)
+   
+   def __str__(self):
+      return self.name """
    
    
 class Post(models.Model):
@@ -37,12 +46,11 @@ class Post(models.Model):
    author = models.CharField(max_length=50, null=True, blank=True)
    title = models.CharField(max_length=150)
    slug = models.SlugField(max_length=160, null=True)
-   category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE)
+   category = models.ForeignKey(Category, null=True, blank=True, related_name='category', on_delete=models.CASCADE)
    content = RichTextField()
+   like = models.PositiveIntegerField(default=0)
    image = models.ImageField(default='default.png', upload_to='post_img')
    tags = models.ManyToManyField(Tag)
-   is_published = models.BooleanField(default=False, verbose_name="Is Published?")
-   published_at = models.DateTimeField(null=True, blank=True, editable=False, verbose_name="Published at")
    is_featured = models.BooleanField(default=False, verbose_name="Is Featured?")
    created = models.DateTimeField(default=timezone.now)
    updated = models.DateTimeField(auto_now=True)
