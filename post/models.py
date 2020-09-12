@@ -31,12 +31,6 @@ class Tag(models.Model):
    def __str__(self):
       return self.name
    
-""" class Like(models.Model):
-   name = models.CharField(max_length=30)
-   
-   def __str__(self):
-      return self.name """
-   
    
 class Post(models.Model):
    STATUS_CHOICES = {
@@ -64,15 +58,11 @@ class Post(models.Model):
       self.published_at = timezone.now()
       self.save()
    
-   ''' def save(self, *args, **kwargs):
-      super().save(*args, **kwargs)'''
-   
    def get_absolute_url(self):
       return reverse('post-detail', kwargs={'slug': self.slug}) 
    
    
 class Comment(models.Model):
-   #sno = models.AutoField(primary_key=True)
    user = models.ForeignKey(User, on_delete=models.CASCADE)
    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
    body = models.TextField()
@@ -87,7 +77,20 @@ class Comment(models.Model):
       ordering = ['created']
    
    def __str__(self):
-      return self.post
+      return self.post.title
+   
+
+class UserPreference(models.Model):
+   user= models.ForeignKey(User, on_delete=models.CASCADE)
+   post= models.ForeignKey(Post, on_delete=models.CASCADE, related_name='preference')
+   value= models.IntegerField()
+   created = models.DateTimeField(default=timezone.now)
+   
+   def __str__(self):
+      return str(self.user) + ':' + str(self.post) +':' + str(self.value)
+
+   class Meta:
+      unique_together = ("user", "post", "value")
    
 
    

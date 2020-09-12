@@ -50,52 +50,29 @@
                      </div>
                   </div>
 
-                  
-                  <div id="comments" class="box-comments">
-                     <div class="title-box-2">
-                        <h4 class="title-comments title-left">Comments</h4>
-                     </div>
-                     <ul class="list-comments">
-                        {% for comment in comments %}
-                           <li>
-                              <div class="comment-avatar">
-                                 <img src="assets/img/testimonial-4.jpg" alt="">
-                              </div>
-                              <div class="comment-details">
-                                 <h6 class="comment-author">{{comment.user.username}}</h6>
-                                 <span>{{comment.created}}</span>
-                                 <p>
-                                 {{comment.body|linebreaks}}
-                                 </p>
-                                 <div class="reply">
-                                    <a href="" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Reply</a>
-                                    
-                                    <div class="collapse" id="collapseExample">
-                                       <ul>
-                                          <li class="comment-children">
-                                          <div class="comment-avatar">
-                                             <img src="assets/img/testimonial-2.jpg" alt="">
-                                          </div>
-                                          <div class="comment-details">
-                                             <h4 class="comment-author">Oliver Colmenares</h4>
-                                             <span>18 Sep 2017</span>
-                                             <p>
-                                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores reprehenderit, provident cumque
-                                             ipsam temporibus maiores
-                                             quae.
-                                             </p>
-                                             <a href="">Reply</a>
-                                          </div>
-                                       </li>
-                                       </ul>
-                                       
-                                    </div>
+                  {% if post.comments.count > 0 %}
+                     <div id="comments" class="box-comments">
+                        <div class="title-box-2">
+                           <h4 class="title-comments title-left">Comments</h4>
+                        </div>
+                        <ul class="list-comments">
+                           {% for comment in comments %}
+                              <li>
+                                 <div class="comment-avatar">
+                                    <img src="assets/img/testimonial-4.jpg" alt="">
                                  </div>
-                              </div>
-                           </li>
-                           {% endfor %}
-                     </ul>
-                  </div>
+                                 <div class="comment-details">
+                                    <span class="comment-author"><strong>{{comment.user.first_name}}<span> </span>{{comment.user.last_name}}</strong></span> 
+                                    <span class="comment-date float-right">{{comment.created|timesince}}</span>
+                                    <p>
+                                    {{comment.body|linebreaks}}
+                                    </p>
+                                 </div>
+                              </li>
+                              {% endfor %}
+                        </ul>
+                     </div>
+                  {% endif %}
                   
 
                   <div class="form-comments">
@@ -221,3 +198,5 @@
    <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
 
  -->
+
+

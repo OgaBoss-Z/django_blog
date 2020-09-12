@@ -1256,11 +1256,17 @@ s-cat {
 --------------------------------------------------------------*/
 .post-box,
 .form-comments,
-.box-comments,
 .widget-sidebar {
   padding: 2rem;
   background-color: #fff;
   margin-bottom: 3rem;
+}
+
+
+.box-comments {
+  padding: 1rem;
+  background-color: #fff;
+  margin-bottom: 2rem;
 }
 
 .post-img {
@@ -1274,7 +1280,7 @@ s-cat {
   .form-comments,
   .box-comments,
   .widget-sidebar {
-    padding: 3rem;
+    padding: 2.5rem;
   }
 }
 
@@ -1319,6 +1325,9 @@ s-cat {
 
 /*------/ Comments /------*/
 .box-comments .list-comments li {
+  margin-bottom: 25px;
+}
+.box-comments .list-comments comment-details {
   padding-bottom: 40px;
 }
 
@@ -1328,24 +1337,31 @@ s-cat {
 }
 
 .box-comments .list-comments .comment-avatar img {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
 }
 
 .box-comments .list-comments .comment-author {
-  font-size: 1.3rem;
+  font-size: .9rem;
+}
+
+.box-comments .list-comments .comment-author span {
+  font-size: .9rem;
 }
 
 @media (min-width: 768px) {
   .box-comments .list-comments .comment-author {
-    font-size: 1.5rem;
+    font-size: .9rem;
+  }
+  .box-comments .list-comments .comment-author span {
+    font-size: .9rem;
   }
 }
 
 .box-comments .list-comments .comment-details {
   display: table-cell;
   vertical-align: top;
-  padding-left: 25px;
+  padding-left: 20px;
 }
 
 .box-comments .list-comments a {

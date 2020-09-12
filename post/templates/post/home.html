@@ -30,7 +30,6 @@
                               <h5 class="mt-3"><a class="article-title" href="{% url 'post-detail' post.slug %}">{{ post.title }}</a></h5>
                               <a class="article-title" href="{% url 'post-detail' post.slug %}"><p class="article-content">{{ post.content|safe|linebreaks|truncatechars:120 }}</p></a>
                               
-                              
                            </div>
                         </article>
                      {% endfor %} 

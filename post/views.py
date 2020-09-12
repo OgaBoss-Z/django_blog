@@ -26,7 +26,7 @@ def home(request):
 
 def post_detail_view(request, slug):
    post = get_object_or_404(Post, slug=slug)
-   comments = post.comments.filter(active=True)
+   comments = post.comments.filter(active=True).order_by('-created')
    category = Category.objects.all()
    feature = Post.objects.filter(is_featured=True).order_by('-created')
    related_posts = Post.objects.filter(category=post.category).exclude(id=post.id)
