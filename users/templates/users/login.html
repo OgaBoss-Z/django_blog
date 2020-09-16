@@ -3,7 +3,47 @@
 
 {% block content %}
 
-   <h1>Login Page</h1>
+<main class="main">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-6">
+            <div class="heading">
+               <h2 class="title my-3">Login</h2>
+               <p>If you have an account with us, please log in with your details  so that 
+                  you can access  functionalities like adding items to cart, easy checkout among others.</p>
+            </div>
+
+            <form action="" method="POST">
+               {% csrf_token %}
+               <input type="text" class="form-control" placeholder="Username" name="username" required>
+               <input type="password" class="form-control" placeholder="Password" name="password" required>
+
+               <div class="form-footer">
+                  <button type="submit" class="btn btn-primary">LOGIN</button>
+                  <a href="{ url 'register'}" class="forget-pass"> Forgot your password?</a>
+               </div>
+            </form>
+         </div> 
+
+         <div class="col-md-6">
+            <div class="heading">
+               <h2 class="title mt-3">Create An Account</h2>
+               <p>
+                  By creating an account with our Us, you will be able to add items to your cart,
+                  move through the checkout process faster, view and track your orders in your account and more.
+               </p>
+            </div><!-- End .heading -->
+
+            <div class="form-footer">
+               <a href="{% url 'register' %}"><button type="submit" class="btn btn-primary">Create Account</button></a>
+            </div><!-- End .form-footer -->
+         
+         </div><!-- End .col-md-6 -->
+      </div><!-- End .row -->
+   </div><!-- End .container -->
+
+   <div class="mb-5"></div><!-- margin -->
+</main><!-- End .main -->
 
 {% endblock %}
 

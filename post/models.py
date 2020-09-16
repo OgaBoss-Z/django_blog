@@ -1,6 +1,7 @@
 from django.db import models 
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.shortcuts import reverse
 from django.utils import timezone
 from django.utils.text import slugify
@@ -41,7 +42,7 @@ class Post(models.Model):
    title = models.CharField(max_length=150)
    slug = models.SlugField(max_length=160, null=True)
    category = models.ForeignKey(Category, null=True, blank=True, related_name='category', on_delete=models.CASCADE)
-   content = RichTextField()
+   content = RichTextUploadingField()
    like = models.PositiveIntegerField(default=0)
    image = models.ImageField(default='default.png', upload_to='post_img')
    tags = models.ManyToManyField(Tag)
@@ -60,6 +61,9 @@ class Post(models.Model):
    
    def get_absolute_url(self):
       return reverse('post-detail', kwargs={'slug': self.slug}) 
+   
+   def get_related_posts_by_tags(self):
+      return Post.objects.filter(tags__in=self.tags.all())
    
    
 class Comment(models.Model):

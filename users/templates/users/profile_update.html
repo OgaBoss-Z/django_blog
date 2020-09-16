@@ -1,0 +1,105 @@
+{% extends 'post/base.html' %}
+{%  load static %}
+
+{% block content %}
+
+   <main class="main">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-3">
+               <div class="profile">
+                  <div class="card-header">
+                     <h5>Profile</h5>
+                  </div>
+                  <ul class="list">
+                     <li><a href=""><i class="fa fa-user mr-3" aria-hidden="true"></i>Profile</a></li>
+                     <li class="active"><a href="{% url 'profile-update' %}"><i class="fa fa-pencil-square-o mr-3" aria-hidden="true"></i>Update Profile</a></li>
+                     <li><a href="{% url 'home-page' %}"><i class="fa fa-home mr-3" aria-hidden="true"></i>Blog Home</a></li>
+                     <li><a href="{% url 'logout' %}"><i class="fa fa-sign-out mr-3" aria-hidden="true"></i>Logout</a></li>
+                  </ul>
+               </div>
+            </div>
+
+            <div class="col-md-9">
+               <div class="p-info">
+                  <div class="rounded-circle account-img">
+                     <div class="card mb-3">
+                        <div class="card-header">
+                           <h5>User Information</h5>
+                        </div>
+                        <div class="row no-gutters">
+                        <div class="col-md-4">
+                           <img src="{{user.profile.image.url}}" class="card-img" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                           <div class="card-body">
+                              <h5 class="card-title">{{user.username}}</h5>
+                              <p class="user-email"></p>
+                              <p class="dashboard-p">
+                                 Full name: {{user.first_name}} {{user.last_name}}<br>
+                                 Email: {{user.email}} <br>
+                                 Last Login: {{user.last_login}} <br>
+                                 Date Joined: {{user.date_joined.date}}
+                              </p>
+                              
+                              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                           </div>
+                        </div>
+                        </div>
+                     </div>
+                     <!-- User comments list -->
+                     <div class="user-comments">
+                        <div class="card-header">
+                           <h5>Edit profile information</h5>
+                        </div>
+                        <div class="post-box">
+                           <form action="" method="POST" enctype="multipart/form-data">
+                              {% csrf_token %}
+                              <div class="row">
+                                 <div class="col-sm-12">
+                                    <div class="row">
+                                       <div class="col-md-4">
+                                          <div class="form-group">
+                                             <label for="fname">First Name</label>
+                                             {{u_form.first_name}}
+                                          </div><!-- End .form-group -->
+                                       </div><!-- End .col-md-4 -->
+            
+                                       <div class="col-md-4">
+                                          <div class="form-group">
+                                             <label for="lname">Last Name</label>
+                                             {{u_form.last_name}}
+                                          </div><!-- End .form-group -->
+                                       </div><!-- End .col-md-4 -->
+            
+                                       <div class="col-md-4">
+                                          <div class="form-group">
+                                             <label for="email">Email</label>
+                                             {{u_form.email}}
+                                          </div><!-- End .form-group -->
+                                       </div><!-- End .col-md-4 -->
+                                    </div><!-- End .row -->
+                                 </div><!-- End .col-sm-11 -->
+                              </div><!-- End .row -->
+            
+                              <div class="mb-2"></div><!-- margin -->
+                              {{p_form.image}}
+                              <div class="mb-2"></div><!-- margin -->
+
+                              <div class="form-footer">
+                                 <div class="form-footer-right">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                 </div>
+                              </div><!-- End .form-footer -->
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </main>
+
+{% endblock %}
+

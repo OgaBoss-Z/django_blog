@@ -32,13 +32,19 @@
 
 <body id="page-top">
    {% include "post/navbar.html"%}
+
+   <div class="container-luid mt-3">
+      {% if messages %}
+      {% for message in messages %}
+         <div class="alert alert-{{ message.tags }}" role="alert">
+            {{ message }}
+         </div>
+      {% endfor %}
+      {% endif %}
+   </div>
    
    {% block content%}
 
-   <!-- JQuery -->
-         {% block scripts %}
-
-         {% endblock %}
 
    {% endblock %}
 

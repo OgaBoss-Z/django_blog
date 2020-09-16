@@ -3,11 +3,6 @@
 
 {% block content %}
 
-
-   <div class="intro intro-single route blog-image" style="background-image: url({% static 'post/assets/img/blog-bg.jpg' %})">
-      <div class="overlay-mf"></div>
-   </div>
-
    <main id="main">
 
       <!-- ======= Blog Single Section ======= -->
@@ -20,8 +15,8 @@
                         <article class="media content-section">
                            <img class="rounded-circle article-img" src="{{ post.image.url }}">
                            <div class="media-body">
-                              <div class="article-metadata">
-                                 {{ post.category }}
+                              <div class="article-metadata pb-2">
+                                 In <a href="">{{ post.category }}</a> Category
                                  <small class="text-muted float-right">
                                     {{ post.created|timesince }}
                                  </small>
@@ -92,7 +87,7 @@
 
 
 
-
+<!-- Pagination login -->
    {% if is_paginated %}
 
       {% if page_obj.has_previous %}
@@ -115,17 +110,6 @@
 
    {% endif %}
 
-
-
-{% block script %}
-
-   <script>
-      $(document).ready(function(){
-         alert('We are ready!');
-      })
-   </script>
-
-{% endblock %}
 
 {% endblock %}
 

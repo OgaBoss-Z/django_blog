@@ -3,7 +3,78 @@
 
 {% block content %}
 
-   <h1>Profile Page</h1>
+   <main class="main">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-3">
+               <div class="profile">
+                  <div class="card-header">
+                     <h5>Profile</h5>
+                  </div>
+                  <ul class="list">
+                     <li class="active"><a href=""><i class="fa fa-user mr-3" aria-hidden="true"></i>Profile</a></li>
+                     <li><a href="{% url 'profile-update' %}"><i class="fa fa-pencil-square-o mr-3" aria-hidden="true"></i>Update Profile</a></li>
+                     <li><a href="{% url 'home-page' %}"><i class="fa fa-home mr-3" aria-hidden="true"></i>Blog Home</a></li>
+                     <li><a href="{% url 'logout' %}"><i class="fa fa-sign-out mr-3" aria-hidden="true"></i>Logout</a></li>
+                  </ul>
+               </div>
+            </div>
+
+            <div class="col-md-9">
+               <div class="p-info">
+                  <div class="rounded-circle account-img">
+                     <div class="card mb-3">
+                        <div class="card-header">
+                           <h5>User Information</h5>
+                         </div>
+                        <div class="row no-gutters">
+                        <div class="col-md-3">
+                           <img src="{{user.profile.image.url}}" class="card-img" alt="...">
+                        </div>
+                        <div class="col-md-9">
+                           <div class="card-body">
+                              <h5 class="card-title">{{user.username}}</h5>
+                              <p class="user-email"></p>
+                              <p class="dashboard-p">
+                                 Full name: {{user.first_name}} {{user.last_name}}<br>
+                                 Email: {{user.email}} <br>
+                                 Last Login: {{user.last_login}} <br>
+                                 Date Joined: {{user.date_joined.date}}
+                              </p>
+                              
+                              <p class="card-text"><small class="text-muted">Last update: {{user.profile.updated}}</small></p>
+                           </div>
+                        </div>
+                        </div>
+                     </div>
+                     <!-- User comments list -->
+                     <div class="user-comments">
+                        <div class="card-header">
+                           <h5>Recent Comments</h5>
+                        </div>
+                        <div class="post-box">
+                           {% for comment in user_comments %}
+                              <article class="media content-section">
+                                 <div class="media-body">
+                                    <div class="article-metadata pb-2">
+                                       {{ comment.post.title }}
+                                       <small class="text-muted float-right">
+                                          {{ comment.created|timesince }}
+                                       </small>
+                                    </div>
+                                    <a class="article-title" href=""><p class="article-content">{{ comment.body|safe|linebreaks|truncatechars:120 }}</p></a>
+                                    
+                                 </div>
+                              </article>
+                           {% endfor %} 
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </main>
 
 {% endblock %}
 

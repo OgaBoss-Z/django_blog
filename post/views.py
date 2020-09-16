@@ -1,17 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponseRedirect
 from django.db.models import Count
-from django.views.generic import (
-   View,
-   ListView,
-   DetailView,
-   CreateView,
-   UpdateView,
-   DeleteView
-)
 from .forms import CommentForm
-from post.models import Post, Category, Comment
+from django.db.models import Q
+from post.models import Post, Tag, Category, Comment
 
-# Create your views here.
+
+
 def home(request):
    category = Category.objects.all()
    feature = Post.objects.filter(is_featured=True).order_by('-created')
@@ -26,10 +20,12 @@ def home(request):
 
 def post_detail_view(request, slug):
    post = get_object_or_404(Post, slug=slug)
+   post_tags_ids = Tag.objects.all().values_list('id', flat=True)
+   related_posts = Post.objects.filter(status='same_tags').filter(tags__in=post_tags_ids).exclude(slug=post.slug)
+   related_posts = related_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-created')[:4]
    comments = post.comments.filter(active=True).order_by('-created')
    category = Category.objects.all()
    feature = Post.objects.filter(is_featured=True).order_by('-created')
-   related_posts = Post.objects.filter(category=post.category).exclude(id=post.id)
    
    if request.method == "POST":
       form = CommentForm(request.POST)
@@ -44,19 +40,13 @@ def post_detail_view(request, slug):
          new_comment.post = post
          new_comment.save()
          return redirect('post-detail', slug=post.slug)
-         
-         ''' 
-         new_comment = form.save(commit=False)
-         new_comment.post = post
-         new_comment.save() 
-         return redirect('post-detail', slug=post.slug) '''
    else:
       form = CommentForm()
       
    context = {
       'post': post,
-      'feature': feature,
       'related_posts':related_posts,
+      'feature': feature,
       'category': category,
       'form': form,
       'comments': comments,
@@ -76,38 +66,6 @@ def category_list(request, pk, slug):
       'category': category,
    }
    return render(request, 'post/category_list.html', context)
-
-
-def liked_post(request, slug):
-   post = get_object_or_404(Post, slug=slug)
-   comments = post.comments.filter(active=True)
-   category = Category.objects.all()
-   feature = Post.objects.filter(is_featured=True).order_by('-created')
-   related_posts = Post.objects.filter(category=post.category).exclude(id=post.id)
-   liked_post = Post.objects.filter(like = like + 1)
-   
-   
-   
-   context = {
-      'post': post,
-      'feature': feature,
-      'related_posts':related_posts,
-      'category': category,
-      'form': form,
-      'comments': comments,
-      'liked_post': liked_post,
-   }
-   return render(request, 'post/detail_page.html', context)
-   
-
-
-
-
-
-
-
-
-
 
 
 #@login_required
