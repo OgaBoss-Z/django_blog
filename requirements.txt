@@ -1,3 +1,4 @@
+psycopg2-binary
 asgiref==3.2.10
 Django==3.0.8
 django-ckeditor==5.9.0
