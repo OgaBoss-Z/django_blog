@@ -1,6 +1,6 @@
 psycopg2-binary
 asgiref==3.2.10
-Django==3.0.8
+Django==3.1.14
 django-ckeditor==5.9.0
 django-comments-xtd==2.6.2
 django-contrib-comments==1.9.2
